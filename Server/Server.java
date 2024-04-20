@@ -1,6 +1,5 @@
 // A Java program for a Server
 import java.net.*;
-import javax.xml.crypto.Data;
 import java.io.*;
 
 public class Server {
@@ -54,6 +53,40 @@ public class Server {
 						long timeElapsed = (endTime - startTime) / 1000; // Calculate the time elapsed in seconds
 					
 						line = "Good Job! You did it in " + timeElapsed + " seconds!\nType 'Ready' to start again or 'Over' to end the connection";
+						
+						// Append the response time to log.txt
+						try {
+							File logFile = new File("log.txt");
+							if (!logFile.exists()) {
+								logFile.createNewFile();
+							}
+							FileReader fr = new FileReader(logFile);
+							BufferedReader br = new BufferedReader(fr);
+							String lastLine = "";
+							String currentLine;
+							while ((currentLine = br.readLine()) != null) {
+								lastLine = currentLine;
+							}
+							br.close();
+
+							int logNumber;
+							if (lastLine.isEmpty()) {
+								logNumber = 1;
+							} else {
+								logNumber = Integer.parseInt(lastLine.substring(4, lastLine.indexOf(":")));
+								logNumber++;
+							}
+
+							FileWriter fw = new FileWriter("log.txt", true);
+							BufferedWriter bw = new BufferedWriter(fw);
+							PrintWriter pw = new PrintWriter(bw);
+							pw.println("Log " + logNumber + ": Response time: " + timeElapsed + " seconds");
+							pw.close();
+						} catch (IOException e) {
+							System.out.println(e);
+						}
+
+						
 					}
 
 					// write to the client
