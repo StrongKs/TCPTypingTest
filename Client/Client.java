@@ -38,6 +38,7 @@ public class Client {
 
 		// string to read message from input
 		String line = "";
+		String response = "";
 
 		// get instructions from server
 		try {
@@ -56,8 +57,8 @@ public class Client {
 				out.writeUTF(line);
 
 				// read and display the message from server
-				line = in.readUTF();
-				System.out.println("Server: " + line);
+				response = in.readUTF();
+				System.out.println("Server: " + response);
 
 			} catch (IOException i) {
 				System.out.println(i);

@@ -1,24 +1,20 @@
 // A Java program for a Server
 import java.net.*;
-
 import javax.xml.crypto.Data;
-
 import java.io.*;
 
-public class Server
-{
+public class Server {
 	//initialize socket and input stream
-	private Socket		 socket = null;
+	private Socket socket = null;
 	private ServerSocket server = null;
-	private DataInputStream in	 = null;
+	private DataInputStream in = null;
 	private DataOutputStream out = null;
+	private long startTime = 0;
 
 	// constructor with port
-	public Server(int port)
-	{
+	public Server(int port) {
 		// starts server and waits for a connection
-		try
-		{
+		try {
 			server = new ServerSocket(port);
 			System.out.println("Server started");
 
@@ -28,8 +24,7 @@ public class Server
 			System.out.println("Client accepted");
 
 			// takes input from the client socket
-			in = new DataInputStream(
-				new BufferedInputStream(socket.getInputStream()));
+			in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
 			// sends output to the socket
 			out = new DataOutputStream(socket.getOutputStream());
@@ -45,20 +40,27 @@ public class Server
 			}
 
 			// reads message from client until "Over" is sent
-			while (!line.equals("Over"))
-			{
-				try
-				{
+			while (!line.equals("Over")) {
+				try {
 					line = in.readUTF();
 					System.out.println("Client: " + line);
+
+					if (line.equals("Ready")) {
+						line = "Type the following text: 'The quick brown fox jumps over the lazy dog'";
+			
+						startTime = System.currentTimeMillis(); // Set the start time
+					} else if (line.equals("The quick brown fox jumps over the lazy dog")) {
+						long endTime = System.currentTimeMillis(); // Set the end time
+						long timeElapsed = (endTime - startTime) / 1000; // Calculate the time elapsed in seconds
+					
+						line = "Good Job! You did it in " + timeElapsed + " seconds!\nType 'Ready' to start again or 'Over' to end the connection";
+					}
 
 					// write to the client
 					out.writeUTF("thank you for the message: " + line);
 					out.flush();
 
-				}
-				catch(IOException i)
-				{
+				} catch (IOException i) {
 					System.out.println(i);
 				}
 			}
@@ -67,15 +69,12 @@ public class Server
 			// close connection
 			socket.close();
 			in.close();
-		}
-		catch(IOException i)
-		{
+		} catch (IOException i) {
 			System.out.println(i);
 		}
 	}
 
-	public static void main(String args[])
-	{
+	public static void main(String args[]) {
 		Server server = new Server(4444);
 	}
 }
