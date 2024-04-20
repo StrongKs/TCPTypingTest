@@ -53,7 +53,7 @@ public class Server {
 						long timeElapsed = (endTime - startTime) / 1000; // Calculate the time elapsed in seconds
 					
 						line = "Good Job! You did it in " + timeElapsed + " seconds!\nType 'Ready' to start again, 'Log' to see all responses, or 'Over' to end the connection";
-						
+
 						// Append the response time to log.txt
 						try {
 							File logFile = new File("log.txt");
@@ -86,7 +86,6 @@ public class Server {
 							System.out.println(e);
 						}
 
-						
 					} else if (line.equals("Log")) {
 						try {
 							File logFile = new File("log.txt");
