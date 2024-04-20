@@ -3,7 +3,7 @@
 ### Student Information
 1. Kent Phipps    UFID: 402092184
 2. Waleed
-1. Simar
+1. Simar Khetpal UFID: 62217796
 
 ### How to compile and run
 *Assuming you have Client and Server file in different machines*
