@@ -21,12 +21,8 @@
         javac Client.java
         java Client <Server-ip> <port>
 
-3. Execute commands "Joke 1", "Joke 2", or "Joke 3" from the client terminal to recieve joke.txt files.
+3. From client, type 'Ready' to begin the typing test. Once completed correctly, response time is logged.
 
-        Joke 1
-        Joke 2
-        Joke 3
+4. Client may then request to see all responses in log with 'Log' request.
 
-4. Execute command "bye" to gracefully exit the cilent-server connection
-
-        bye
+5. Client may gracefully end the connection with 'Over' request.  

@@ -52,7 +52,7 @@ public class Server {
 						long endTime = System.currentTimeMillis(); // Set the end time
 						long timeElapsed = (endTime - startTime) / 1000; // Calculate the time elapsed in seconds
 					
-						line = "Good Job! You did it in " + timeElapsed + " seconds!\nType 'Ready' to start again or 'Over' to end the connection";
+						line = "Good Job! You did it in " + timeElapsed + " seconds!\nType 'Ready' to start again, 'Log' to see all responses, or 'Over' to end the connection";
 						
 						// Append the response time to log.txt
 						try {
@@ -87,6 +87,25 @@ public class Server {
 						}
 
 						
+					} else if (line.equals("Log")) {
+						try {
+							File logFile = new File("log.txt");
+							if (logFile.exists()) {
+								FileReader fr = new FileReader(logFile);
+								BufferedReader br = new BufferedReader(fr);
+								StringBuilder logContent = new StringBuilder();
+								String currentLine;
+								while ((currentLine = br.readLine()) != null) {
+									logContent.append(currentLine).append("\n");
+								}
+								br.close();
+								line = "\n" + logContent.toString();
+							} else {
+								line = "Log file does not exist";
+							}
+						} catch (IOException e) {
+							System.out.println(e);
+						}
 					}
 
 					// write to the client

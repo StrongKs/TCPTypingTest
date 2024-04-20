@@ -1,1 +1,5 @@
 Log 1: Response time: 7 seconds
+Log 2: Response time: 5 seconds
+Log 3: Response time: 3 seconds
+Log 4: Response time: 2 seconds
+Log 5: Response time: 5 seconds
