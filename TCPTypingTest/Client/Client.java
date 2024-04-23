@@ -68,6 +68,14 @@ public class Client {
     }
 
     public static void main(String args[]) {
-        Client client = new Client("10.130.31.73", 4444);
+        if (args.length < 2) {
+            System.out.println("Please provide the IP address and port number");
+            return;
+        }
+
+        String ipAddress = args[0];
+        int port = Integer.parseInt(args[1]);
+        
+        Client client = new Client(ipAddress, port);
     }
 }
