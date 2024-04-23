@@ -3,26 +3,66 @@
 ### Student Information
 1. Kent Phipps    UFID: 402092184
 2. Waleed
-1. Simar
+1. Simar          UDIF: 62217796
 
-### How to compile and run
-*Assuming you have Client and Server file in different machines*
-1. Compile and run server.java
+# TCPTypingTest
 
-    • Open a terminal at Server folder and execute: 
+The TCPTypingTest is a client-server based application that allows users to test their typing speed and accuracy over a TCP connection. The server sends typing prompts to the client, times the responses, and logs the results. The client can end the session or request previous session logs.
 
-        javac Server.java
-        java Server <port>
+## Features
 
-2. Comple and run client.java
+- **Typing Test**: Receive randomly chosen sentences to type which helps in testing typing speed and accuracy.
+- **Logging**: Each typing response time is logged for future retrieval.
+- **Session Control**: Clients can request to end the session gracefully or forcefully.
 
-    • Open a terminal at Client folder and execute:
+## How to Run the Program
 
-        javac Client.java
-        java Client <Server-ip> <port>
+### Server Setup
 
-3. From client, type 'Ready' to begin the typing test. Once completed correctly, response time is logged.
+1. **Compile the Server**:
+    - Navigate to the directory containing `Server.java`.
+    - Compile the server using the Java compiler:
+      ```bash
+      javac Server.java
+      ```
 
-4. Client may then request to see all responses in log with 'Log' request.
+2. **Run the Server**:
+    - Start the server with a specific port:
+      ```bash
+      java Server <port>
+      ```
+    - Example:
+      ```bash
+      java Server 4444
+      ```
 
-5. Client may gracefully end the connection with 'Over' request.  
+### Client Setup
+
+1. **Compile the Client**:
+    - Navigate to the directory containing `Client.java`.
+    - Compile the client using the Java compiler:
+      ```bash
+      javac Client.java
+      ```
+
+2. **Run the Client**:
+    - Connect to the server by specifying the server's IP address and port:
+      ```bash
+      java Client <Server-ip> <port>
+      ```
+    - Example:
+      ```bash
+      java Client 192.168.1.5 4444
+      ```
+
+### Usage
+
+- **Start Typing Test**:
+  - From the client terminal, type `Ready` to begin the typing test. The server will send a sentence to type.
+- **View Logs**:
+  - Type `Log` to request viewing all past responses' logs.
+- **End Session Gracefully**:
+  - Type `Over` to end the connection gracefully.
+- **Force End Game**:
+  - Type `End Game` at any point to immediately end the typing test and close the connection.
+
