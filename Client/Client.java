@@ -2,25 +2,25 @@ import java.io.*;
 import java.net.*;
 
 public class Client {
-    // Initialize socket and input output streams
+
     private Socket socket = null;
     private DataInputStream input = null;
     private DataOutputStream out = null;
     private DataInputStream in = null;
 
-    // Constructor to put ip address and port
+    //for ip address and port
     public Client(String address, int port) {
-        // Establish a connection
+        //for making the connection
         try {
             socket = new Socket(address, port);
             System.out.println("Connected");
 
-            // Takes input from terminal
+            //get user inputs
             input = new DataInputStream(System.in);
 
             in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
-            // Sends output to the socket
+            //to sends output to the socket
             out = new DataOutputStream(socket.getOutputStream());
         } catch (UnknownHostException u) {
             System.out.println(u);
@@ -30,11 +30,11 @@ public class Client {
             return;
         }
 
-        // String to read message from input
+        //get info of input of user
         String line = "";
         String response = "";
 
-        // Get instructions from server
+        //to get instructions from server
         try {
             line = in.readUTF();
             System.out.println("Server: " + line);
@@ -48,7 +48,7 @@ public class Client {
                 line = reader.readLine();
                 out.writeUTF(line);
 
-                // Read and display the message from server
+                
                 response = in.readUTF();
                 System.out.println("Server: " + response);
 
@@ -57,7 +57,7 @@ public class Client {
             }
         }
 
-        // Close the connection
+        //to close the connection
         try {
             input.close();
             out.close();
