@@ -2,8 +2,8 @@
 
 ### Student Information
 1. Kent Phipps    UFID: 402092184
-2. Waleed
-1. Simar          UDIF: 62217796
+2. Waleed Aref    UFID: 96185607
+1. Simar          UFID: 62217796
 
 # TCPTypingTest
 
