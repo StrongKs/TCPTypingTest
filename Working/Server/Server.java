@@ -17,6 +17,11 @@ public class Server {
 
     public Server(int port) {
         try {
+            // Clear the log file at the start of each server run
+            PrintWriter writer = new PrintWriter("log.txt");
+            writer.print(""); // Clear the contents
+            writer.close();
+
             server = new ServerSocket(port);
             System.out.println("Server started");
             System.out.println("Waiting for a client ...");
@@ -52,40 +57,11 @@ public class Server {
 
                     // Log the response time to log.txt
                     try {
-                        File logFile = new File("log.txt");
-
-                        // Delete the existing log file, if it exists.
-                        if (logFile.exists()) {
-                        logFile.delete();
-                    }
-
-                    // Create a new, empty log file.
-                    try {
-                        logFile.createNewFile();
-                    } catch (IOException e) {
-                        System.out.println("Error creating new log file: " + e.getMessage());
-                    }
-
-                        FileReader fr = new FileReader(logFile);
-                        BufferedReader br = new BufferedReader(fr);
-                        String lastLine = "";
-                        String currentLine;
-                        while ((currentLine = br.readLine()) != null) {
-                            lastLine = currentLine;
-                        }
-                        br.close();
-
-                        int logNumber;
-                        if (lastLine.isEmpty()) {
-                            logNumber = 1;
-                        } else {
-                            logNumber = Integer.parseInt(lastLine.substring(4, lastLine.indexOf(":"))) + 1;
-                        }
-
-                        FileWriter fw = new FileWriter(logFile, true);
+                        File logFile = new File("log.txt"); // No need to check if it exists or create new
+                        FileWriter fw = new FileWriter(logFile, true); // Append mode
                         BufferedWriter bw = new BufferedWriter(fw);
                         PrintWriter pw = new PrintWriter(bw);
-                        pw.println("Log " + logNumber + ": Response time: " + timeElapsed + " seconds");
+                        pw.println("Log " + (new BufferedReader(new FileReader(logFile)).lines().count() + 1) + ": Response time: " + timeElapsed + " seconds");
                         pw.close();
                     } catch (IOException e) {
                         System.out.println(e);
@@ -102,16 +78,16 @@ public class Server {
                                 logContent.append(currentLine).append("\n");
                             }
                             br.close();
-                            line = "\n" + logContent.toString();
+                            out.writeUTF("\n" + logContent.toString());
                         } else {
-                            line = "Log file does not exist";
+                            out.writeUTF("Log file does not exist");
                         }
                     } catch (IOException e) {
                         System.out.println(e);
                     }
-                    out.writeUTF(line);
+                    out.writeUTF("Type 'Ready' to start Typing test, 'Log' to see all responses, or 'Over' to end the connection");
                 } else {
-                    out.writeUTF("Incorrect input. Please type the following text exactly as shown: '" + currentTestSentence + "'\nType 'Ready' to start again or 'Over' to end the connection");
+                    out.writeUTF("Incorrect input. Please type the following text exactly as shown: '" + currentTestSentence + "'");
                 }
                 out.flush();
             }
@@ -119,6 +95,7 @@ public class Server {
             System.out.println("Closing connection");
             socket.close();
             in.close();
+            out.close();
         } catch (IOException i) {
             System.out.println(i);
         }
